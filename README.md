@@ -28,6 +28,7 @@ dbt transformation (Bronze → Silver → Gold)
 ↓
 Power BI dashboard (3 pages)
 
+![FlowBoard Pipeline Architecture](FlowBoard.png)
 
 ## Tech Stack
 
