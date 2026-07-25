@@ -35,9 +35,9 @@ Power BI dashboard (3 pages)
 |---|---|
 | Source systems | PostgreSQL, Excel |
 | Ingestion | Python (pandas, psycopg2, openpyxl) |
-| Transformation | dbt Core (SQL models) |
-| Data model | Star schema (fact + dimensions) |
-| Visualization | Power BI (DAX measures) |
+| Transformation | dbt Core |
+| Data model | Star schema |
+| Visualization | Power BI |
 
 ## Dashboard Pages
 
@@ -48,61 +48,47 @@ Revenue vs target, MoM growth, 3-month trend, monthly status table
 FX revenue by corridor, volume vs margin scatter, monthly margin heat map
 
 **Page 3 — Client Intelligence**
-Active/At Risk client counts, revenue by segment, top client ranking, 
-health signals with MoM trends
+Active/At Risk KPIs, revenue by segment, top client ranking, health signals
 
-## Data Models (dbt)
+## dbt Models
 
-Staging (4 views)
-├── stg_transactions
-├── stg_clients
-├── stg_revenue_targets
-└── stg_fx_fee_schedule
+**Staging (4 views)**
+- stg_transactions
+- stg_clients
+- stg_revenue_targets
+- stg_fx_fee_schedule
 
-Silver (2 views)
-├── silver_transactions ← joins + FX calculations
-└── silver_monthly_summary ← monthly aggregation + target join
+**Silver (2 views)**
+- silver_transactions
+- silver_monthly_summary
 
-Gold (3 tables)
-├── gold_executive_summary ← executive KPIs + MoM metrics
-├── gold_corridor_performance ← FX corridor profitability
-└── gold_client_performance ← client health + revenue trends
-
-## Project Structure
-
-flowboard_practice/
-├── flowboard_dbt/ ← dbt project (models, tests, docs)
-├── data/
-│ └── bronze/ ← raw Parquet files
-├── generate_data.py ← synthetic data generator
-├── generate_excel.py ← Excel source generator
-├── ingest_postgres.py ← PostgreSQL ingestion
-├── ingest_excel.py ← Excel ingestion
-├── load_staging.py ← loads Excel data to PostgreSQL
-└── README.md
+**Gold (3 tables)**
+- gold_executive_summary
+- gold_corridor_performance
+- gold_client_performance
 
 ## Setup
 
-1. Install PostgreSQL and create a `flowboard` database
-2. Install Python dependencies:
-```bash
+**1. Install dependencies**
+
 pip install psycopg2-binary pandas openpyxl sqlalchemy faker dbt-postgres
-```
-3. Generate and load synthetic data:
-```bash
+
+**2. Generate synthetic data**
+
 python generate_data.py
 python ingest_postgres.py
 python generate_excel.py
 python ingest_excel.py
 python load_staging.py
-```
-4. Run dbt pipeline:
-```bash
+
+**3. Run dbt pipeline**
+
 cd flowboard_dbt
 dbt run
-```
-5. Open `FlowBoard_Demo.pbix` in Power BI Desktop and refresh
 
+**4. Open Power BI**
 
-If your finance team still spends days on manual reports, 
-[let's talk](https://www.linkedin.com/in/eddy-manouan/).
+Open FlowBoard_Demo.pbix and refresh the data source.
+
+If your finance team still spends days on manual reports,
+connect with me on [LinkedIn](https://linkedin.com/in/eddymanouan).
