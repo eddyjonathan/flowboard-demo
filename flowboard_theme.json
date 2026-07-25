@@ -1,0 +1,35 @@
+{
+  "name": "FlowBoard Dark",
+  "dataColors": [
+    "#00B4D8",
+    "#06D6A0",
+    "#FFB703",
+    "#EF476F",
+    "#4CC9F0",
+    "#7B2FBE"
+  ],
+  "background": "#0D1B2A",
+  "foreground": "#FFFFFF",
+  "tableAccent": "#00B4D8",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "fontFamily": [{"value": "Segoe UI"}],
+        "background": [{"color": {"solid": {"color": "#1B2B3B"}}}]
+      }
+    },
+    "card": {
+      "*": {
+        "calloutValue": [{
+          "fontSize": 28,
+          "fontBold": true,
+          "color": {"solid": {"color": "#FFFFFF"}}
+        }],
+        "label": [{
+          "fontSize": 11,
+          "color": {"solid": {"color": "#8899AA"}}
+        }]
+      }
+    }
+  }
+}

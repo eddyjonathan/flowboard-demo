@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: flowboard_raw
+    database: flowboard
+    schema: public
+    tables:
+      - name: transactions
+        description: "Raw payment transactions from PostgreSQL"
+      - name: clients
+        description: "Client master data from PostgreSQL"
+      - name: stg_revenue_targets
+        description: "Monthly revenue targets from Excel via Python"
+      - name: stg_fx_fee_schedule
+        description: "FX markup schedule per corridor from Excel via Python"
