@@ -1,0 +1,44 @@
+name: dbt run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'flowboard_dbt/models/**'
+      - 'flowboard_dbt/profiles.yml'
+      - 'flowboard_dbt/dbt_project.yml'
+  workflow_dispatch:
+
+jobs:
+  dbt:
+    runs-on: ubuntu-latest
+    env:
+      DBT_PROFILES_DIR: ${{ github.workspace }}/flowboard_dbt
+      NEON_HOST: ${{ secrets.NEON_HOST }}
+      NEON_USER: ${{ secrets.NEON_USER }}
+      NEON_PASSWORD: ${{ secrets.NEON_PASSWORD }}
+      NEON_DBNAME: ${{ secrets.NEON_DBNAME }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt
+        run: pip install dbt-postgres==1.11.0
+
+      - name: Debug connection
+        working-directory: flowboard_dbt
+        run: dbt debug --target neon
+
+      - name: Run dbt
+        working-directory: flowboard_dbt
+        run: dbt run --target neon
+
+      - name: Run tests
+        if: success()
+        working-directory: flowboard_dbt
+        run: dbt test --target neon
