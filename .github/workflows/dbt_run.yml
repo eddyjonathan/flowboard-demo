@@ -42,3 +42,15 @@ jobs:
         if: success()
         working-directory: flowboard_dbt
         run: dbt test --target neon
+
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'flowboard_dbt/models/**'
+      - 'flowboard_dbt/profiles.yml'
+      - 'flowboard_dbt/dbt_project.yml'
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
